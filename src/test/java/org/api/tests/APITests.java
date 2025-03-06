@@ -50,4 +50,16 @@ public class APITests {
         Assert.assertEquals(response.statusCode(), 200);
         System.out.println(response.asPrettyString());
     }
+
+    @Test(description = "Get user by using username - swagger pet store api.")
+    void TestThree() {
+        String username = "Virat23";
+
+        Response response = new UserService()
+                .getUserByUsername(username);
+
+        Assert.assertEquals(response.statusCode(), 200);
+        Assert.assertEquals(response.body().jsonPath().getInt("id"), 150);
+        System.out.println(response.asPrettyString());
+    }
 }

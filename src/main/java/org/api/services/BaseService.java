@@ -21,4 +21,10 @@ public class BaseService {
                 .body(payload)
                 .post(endpoint);
     }
+
+    Response getRequest(String endpoint){
+        return requestSpecification
+                .accept(ContentType.JSON)
+                .get(endpoint);
+    }
 }
