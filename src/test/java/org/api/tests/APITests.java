@@ -2,6 +2,8 @@ package org.api.tests;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.api.models.request.CreateUserRequest;
+import org.api.models.response.CreateUserResponse;
 import org.api.services.UserService;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +18,7 @@ public class APITests {
     private HashMap<String, Object> payLoad;
 
     @BeforeClass
-    void generatePayLoad(){
+    void generatePayLoad() {
         payLoad = new HashMap<>();
         payLoad.put("id", 150);
         payLoad.put("username", "Virat23");
@@ -60,6 +62,23 @@ public class APITests {
 
         Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(response.body().jsonPath().getInt("id"), 150);
+        System.out.println(response.asPrettyString());
+    }
+
+    @Test(description = "Create a new user from Models - using swagger pet store api.")
+    void TestFour() {
+
+        CreateUserRequest data = new CreateUserRequest("abc@gmail.com", "demo", 200,
+                "user", "9874562317", "demoUser", 10);
+
+        Response response = new UserService()
+                .createUser(data);
+
+        CreateUserResponse createUserResponse = response.as(CreateUserResponse.class);
+
+        Assert.assertEquals(createUserResponse.getMessage(), "200");
+        Assert.assertEquals(createUserResponse.getCode(), "200");
+        Assert.assertEquals(response.statusCode(), 200);
         System.out.println(response.asPrettyString());
     }
 }
