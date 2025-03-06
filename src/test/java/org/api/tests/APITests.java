@@ -2,6 +2,7 @@ package org.api.tests;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.api.models.request.CreateUserBPRequest;
 import org.api.models.request.CreateUserRequest;
 import org.api.models.response.CreateUserResponse;
 import org.api.services.UserService;
@@ -77,6 +78,30 @@ public class APITests {
         CreateUserResponse createUserResponse = response.as(CreateUserResponse.class);
 
         Assert.assertEquals(createUserResponse.getMessage(), "200");
+        Assert.assertEquals(createUserResponse.getCode(), "200");
+        Assert.assertEquals(response.statusCode(), 200);
+        System.out.println(response.asPrettyString());
+    }
+
+    @Test(description = "Create a new user from Models using Builder Pattern- using swagger pet store api.")
+    void TestFive() {
+
+        CreateUserBPRequest payload = new CreateUserBPRequest.Builder()
+                .setFirstName("Rohit")
+                .setLastName("Sharma")
+                .setEmail("rohit.sharma@gmail.com")
+                .setUsername("rohit23")
+                .setPhone("9874563217")
+                .setId(25)
+                .setUserStatus(15)
+                .build();
+
+        Response response = new UserService()
+                .createUser(payload);
+
+        CreateUserResponse createUserResponse = response.as(CreateUserResponse.class);
+
+        Assert.assertEquals(createUserResponse.getMessage(), "25");
         Assert.assertEquals(createUserResponse.getCode(), "200");
         Assert.assertEquals(response.statusCode(), 200);
         System.out.println(response.asPrettyString());

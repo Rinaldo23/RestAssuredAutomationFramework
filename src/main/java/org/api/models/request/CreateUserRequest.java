@@ -82,4 +82,17 @@ public class CreateUserRequest {
         this.userStatus = userStatus;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "CreateUserRequest{" +
+                "email='" + email + '\'' +
+                ", id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userStatus=" + userStatus +
+                '}';
+    }
 }
